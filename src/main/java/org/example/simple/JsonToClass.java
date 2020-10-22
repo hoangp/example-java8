@@ -1,4 +1,4 @@
-package org.example;
+package org.example.simple;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,10 +9,8 @@ import java.util.Map.Entry;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonToClass
-{
-	public void run() throws IOException
-	{
+public class JsonToClass {
+	public void run() throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 
 		String carJsonString = "{ \"brand\" : \"Mercedes\", \"doors\" : 5 }";
@@ -41,8 +39,7 @@ public class JsonToClass
 		System.out.println("getToken = " + token2.getToken());
 
 		Iterator<Entry<String, JsonNode>> fields = tokenJsonNode2.fields();
-		while (fields.hasNext())
-		{
+		while (fields.hasNext()) {
 			Entry<String, JsonNode> jsonField = fields.next();
 			System.out.println("key=" + jsonField.getKey() + " value=" + jsonField.getValue());
 		}
@@ -51,41 +48,34 @@ public class JsonToClass
 		System.out.println("findvalue = " + tokenJsonNode2.findPath("toke").asText().equals("102e4ee6"));
 	}
 
-	public static void main(String[] args) throws IOException
-	{
+	public static void main(String[] args) throws IOException {
 		JsonToClass app = new JsonToClass();
 		app.run();
 	}
 
-	public static class Car
-	{
+	public static class Car {
 		private String brand = null;
 		private int doors = 0;
 
-		public String getBrand()
-		{
+		public String getBrand() {
 			return this.brand;
 		}
 
-		public void setBrand(String brand)
-		{
+		public void setBrand(String brand) {
 			this.brand = brand;
 		}
 
-		public int getDoors()
-		{
+		public int getDoors() {
 			return this.doors;
 		}
 
-		public void setDoors(int doors)
-		{
+		public void setDoors(int doors) {
 			this.doors = doors;
 		}
 	}
 }
 
-class KoToken
-{
+class KoToken {
 	public Boolean valid;
 	public Object data;
 
@@ -93,30 +83,23 @@ class KoToken
 	 * 
 	 * @return
 	 */
-	public boolean isValid()
-	{
-		if (valid == null)
-		{
+	public boolean isValid() {
+		if (valid == null) {
 			return false;
 		}
 		return valid.booleanValue();
 	}
 
-	public String getToken()
-	{
-		if ( !isValid())
-		{
+	public String getToken() {
+		if (!isValid()) {
 			return null;
 		}
 
-		try
-		{
+		try {
 			ArrayList<?> dataList = (ArrayList<?>) data;
 			Map<?, ?> dataMap = (Map<?, ?>) dataList.get(0);
 			return (String) dataMap.get("token");
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return null;
 		}
 	}
